@@ -19,8 +19,9 @@ public class Movie {
     private String imagen;
     private String imageCartel;
     private String trailer;
+    private String pais;
 
-    public Movie(String titulo, String director, int anio, String genero, String argumento, String imagen, String imageCartel, String trailer) {
+    public Movie(String titulo, String director, int anio, String genero, String argumento, String imagen, String imageCartel, String trailer, String pais) {
         this.titulo = titulo;
         this.director = director;
         this.anio = anio;
@@ -29,6 +30,7 @@ public class Movie {
         this.imagen = imagen;
         this.imageCartel = imageCartel;
         this.trailer = trailer;
+        this.pais = pais;
     }
 
     public Movie() {
@@ -100,5 +102,13 @@ public class Movie {
 
     public void setTrailer(String trailer) {
         this.trailer = trailer;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 }

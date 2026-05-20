@@ -1,5 +1,6 @@
 package com.inditex.videoclub_java_springboot.controller;
 
+import com.inditex.videoclub_java_springboot.model.CoproduccionDTO;
 import com.inditex.videoclub_java_springboot.model.Movie;
 import com.inditex.videoclub_java_springboot.service.MovieService;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,11 @@ public class MovieController {
     @GetMapping("/movies")
     public List<Movie> getAllMovies(){
         return movieService.getAll();
+    }
+
+    @GetMapping("/coproducciones")
+    public List<CoproduccionDTO> getCoproducciones(){
+        return movieService.getCoproducciones();
     }
 
     @PostMapping("/movies")

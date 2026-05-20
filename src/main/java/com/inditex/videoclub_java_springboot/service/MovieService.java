@@ -1,12 +1,15 @@
 package com.inditex.videoclub_java_springboot.service;
 
+import com.inditex.videoclub_java_springboot.model.CoproduccionDTO;
 import com.inditex.videoclub_java_springboot.model.Movie;
 import com.inditex.videoclub_java_springboot.repository.MovieRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -49,8 +52,22 @@ public class MovieService {
             existingMovie.setImagen(updatedMovie.getImagen());
             existingMovie.setImageCartel(updatedMovie.getImageCartel());
             existingMovie.setTrailer(updatedMovie.getTrailer());
+            existingMovie.setPais(updatedMovie.getPais());
             return movieRepository.save(existingMovie);
         }
         throw new RuntimeException("Película no encontrada en la BBDD con id: " + id);
+    }
+
+    public List<CoproduccionDTO> getCoproducciones() {
+        List<Movie> movies = movieRepository.findAll();
+        Map<String, List<Movie>> grouped = movies.stream()
+                .collect(Collectors.groupingBy(m -> m.getPais() != null ? m.getPais() : "other"));
+        return grouped.entrySet().stream()
+                .map(e -> new CoproduccionDTO(
+                        Integer.toHexString(Math.abs(e.getKey().hashCode())).substring(0, 4),
+                        e.getKey(),
+                        e.getValue()
+                ))
+                .collect(Collectors.toList());
     }
 }
